@@ -22,7 +22,10 @@ function submitOnForm(event) {
     alert('Please, fill all fields');
     return;
   } else {
+    console.log(formData);
+
     localStorage.removeItem(STORAGE_KEY);
+    formData = { email: '', message: '' };
     form.reset();
   }
 }
