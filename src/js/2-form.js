@@ -15,28 +15,21 @@ let formData = {
 function submitOnForm(event) {
   event.preventDefault();
   const form = event.currentTarget;
-  const email = form.elements.email.value.trim();
-  const message = form.elements.message.value.trim();
+  const email = form.elements.email.value;
+  const message = form.elements.message.value;
 
   if (email === '' || message === '') {
     alert('Please, fill all fields');
     return;
+  } else {
+    localStorage.removeItem(STORAGE_KEY);
+    form.reset();
   }
-
-  console.log(formData);
-
-  localStorage.removeItem(STORAGE_KEY);
-  formData = {
-    email: '',
-    message: '',
-  };
-
-  form.reset();
 }
 
 function saveUserInfo(event) {
-  formData.email = form.elements.email.value.trim();
-  formData.message = form.elements.message.value.trim();
+  formData.email = event.currentTarget.email.value;
+  formData.message = event.currentTarget.message.value;
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
@@ -49,6 +42,4 @@ function loadLastInfo() {
 
   form.elements.email.value = lastInfo.email || '';
   form.elements.message.value = lastInfo.message || '';
-
-  formData = lastInfo;
 }
